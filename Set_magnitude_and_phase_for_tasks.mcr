@@ -1,15 +1,17 @@
-' Test_macro
+' Macro used to set magnitude and phase for all tasks.'
+' The magnitudes and the phases need to be calculated beforehand'
 
 Sub Main ()
 	Dim Magnitudes As Variant
+	Dim Phases As Variant
 	Dim nb_coils As Integer
 	Dim Port_offset As Integer
 
 	'########################################INSERT PARAMETERS HERE#################################################'
-	nb_coils = 8
-	Port_start = 24
-	Magnitude = Array(1.94862190712210,	1.10669122909554, 1.26596992010020,	1.32685228907074,	0.971669026661701,	0.304070905426335,	1.21250404173537,	2.53804993344609)
-	Phase = Array(-179.994495794148,	-170.202367386334,	58.6623521594078,	50.8973684142317,	43.4973150663814,	265.364891892856,	-97.1287619423240,	25.1440897700117)
+	nb_coils = 1
+	Port_start = 1
+	Magnitudes = Array(1)
+	Phases = Array(1)
 	'###########################################################################################################'
 
 	'#########Select the first Coil location######'
@@ -23,7 +25,7 @@ Sub Main ()
 		Name = SimulationTask.GetNextTaskName
 		With SimulationTask
 			.name(Name)
-			.SetComplexPortExcitation(Port, Magnitude(Port-Port_start), Phase(Port-Port_start))
+			.SetComplexPortExcitation(Port, Magnitudes(Port-Port_start), Phases(Port-Port_start))
 		End With
 	Next Port
 
@@ -32,7 +34,7 @@ Sub Main ()
 	For Port = Port_start To Port_start + nb_coils - 1
 		With SimulationTask
 			.name(Name)
-			.SetComplexPortExcitation(Port, Magnitude(Port-Port_start), Phase(Port-Port_start))
+			.SetComplexPortExcitation(Port, Magnitudes(Port-Port_start), Phases(Port-Port_start))
 		End With
 	Next Port
 
@@ -41,7 +43,7 @@ Sub Main ()
 	For Port = Port_start To Port_start + nb_coils - 1
 		With SimulationTask
 			.name(Name)
-			.SetComplexPortExcitation(Port, Magnitude(Port-Port_start), -Phase(Port-Port_start))
+			.SetComplexPortExcitation(Port, Magnitudes(Port-Port_start), -Phases(Port-Port_start))
 		End With
 	Next Port
 
@@ -50,7 +52,7 @@ Sub Main ()
 	For Port = Port_start To Port_start + nb_coils - 1
 		With SimulationTask
 			.name(Name)
-			.SetComplexPortExcitation(Port, Magnitude(Port-Port_start), 0)
+			.SetComplexPortExcitation(Port, Magnitudes(Port-Port_start), 0)
 		End With
 	Next Port
 
@@ -70,11 +72,11 @@ Sub Main ()
 
 				With SimulationTask
 					.name(Name)
-					.SetComplexPortExcitation(Port1, Magnitude(Port1-Port_start), Phase(Port1-Port_start))
+					.SetComplexPortExcitation(Port1, Magnitudes(Port1-Port_start), Phases(Port1-Port_start))
 					If FindPosition(Name, "prime") > 0 Then
-						.SetComplexPortExcitation(Port2, Magnitude(Port2-Port_start), 90-Phase(Port2-Port_start))
+						.SetComplexPortExcitation(Port2, Magnitudes(Port2-Port_start), 90-Phases(Port2-Port_start))
 					Else
-						.SetComplexPortExcitation(Port2, Magnitude(Port2-Port_start), Phase(Port2-Port_start))
+						.SetComplexPortExcitation(Port2, Magnitudes(Port2-Port_start), Phases(Port2-Port_start))
 					End If
 				End With
 				Exit For
