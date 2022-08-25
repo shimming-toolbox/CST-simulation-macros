@@ -3,6 +3,13 @@
 ' It will set your magnitude and phase to what you chose down below, 1 magnitude and 0 phase being the default settings
 ' You can also add extra tasks like CP mode with the Extra_Tasks parameters
 
+'Custom parameters
+'nb_coils: Number of coils
+'port_start: Index of the first port for your coils (Note: your ports should be indexed sequentially)
+'Extra_Tasks: Extra tasks other than coils you want to add
+'phantom_phase: Phase inputted as default when creating the coil tasks
+'phantom_magnitude: Magnitude inputted as default when creating the coil tasks
+
 Sub Main ()
 	Dim nb_coils As Integer
 	Dim port_start As Integer
@@ -12,7 +19,7 @@ Sub Main ()
 	'########################################INSERT PARAMETERS HERE#################################################'
 	nb_coils = 8
 	port_start = 24
-	Extra_Tasks = Array("test_CPmode", "test_negCPMode", "test_zeroPhase")
+	Extra_Tasks = Array("CPmode", "negCPMode", "zeroPhase")
 
 	'Default value for magnitude and phase. Used to simulate on the phantom'
 	phantom_magnitude = 1
