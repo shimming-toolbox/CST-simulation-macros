@@ -7,12 +7,13 @@ If you would like to develop your own macro to script task parameters in CST, I 
 **Disclaimer**: These macros are meant to be used together. If you only want to use one in particular, make sure the nomenclature of your tasks respects the norms used in these macros. 
 
 ### Norms:
-1. All coil tasks are in a sequence called Coil_Combinations
+1. All coil tasks are in a sequence called CoilCombinations
 2. All coil tasks are named Coil_#, where # is the coil number
 3. All excitation tasks are regrouped in a sequence called SAR_Excitations
 4. All excitations tasks are named Exc_#1_#2 or Exc_#1_#2_prime, where #1 is the first coil number and #2 the second coil number
-5. All extra tasks must be included in the Coil_Combinations sequence
+5. All extra tasks must be included in the CoilCombinations sequence
 6. Extra tasks must contain the word zero if you want your phases to be zero for this task and neg if you want the opposite sign for your phases. If none of these keywords are present, the phases will be set to their normal value.
+7. The block name of your schematic must be called MWSSCHEM1 (this is the default block name)
 
 ### How to add a macro:
 1. Download the zip file from this repository
