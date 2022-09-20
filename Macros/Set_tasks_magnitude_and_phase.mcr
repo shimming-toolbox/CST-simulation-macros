@@ -11,21 +11,23 @@
 Sub Main ()
 	Dim Magnitudes As Variant
 	Dim Phases As Variant
+	Dim CPmodePhases As Variant
 	Dim nb_coils As Integer
 	Dim Port_offset As Integer
 
 	'########################################INSERT PARAMETERS HERE#################################################'
 	nb_coils = 8
-	port_start = 24
-	Magnitudes = Array(1, 2, 3, 4, 5, 6, 7, 8)
-	Phases = Array(10, -20, 30, -40, 50, -60, 70, -80)
+	port_start = 1
+	Magnitudes = Array(0.971, 0.753, 0.836, 1.024, 1.315, 0.682, 0.904, 1.098)
+	Phases = Array(-67, -55, 16, 130, 262, -83, 42, 155)
+	CPmodePhases = Array(0, 93, -123, 110, 147, 61, -78, 202)
 	Extra_Tasks = Array("CPmode", "negCPMode", "zeroPhase")
 	'###########################################################################################################'
 
 	'#########Loop through every coil######'
 	For Coil = 1 To nb_coils
 		With SimulationTask
-			.name("Coil_Combinations\Coil_" & Coil)
+			.name("CoilCombinations\Coil_" & Coil)
 			.SetComplexPortExcitation(port_start - 1 + Coil, Magnitudes(Coil-1), Phases(Coil-1))
 		End With
 			For Coil2 = Coil To nb_coils
@@ -58,9 +60,9 @@ Sub Main ()
 		End If
 
 		With SimulationTask
-			.name("Coil_Combinations\" & task)
+			.name("CoilCombinations\" & task)
 			For Port = port_start To port_start + nb_coils -1
-				.SetComplexPortExcitation(Port, Magnitudes(Port - port_start), phase_sign * Phases(Port - port_start))
+				.SetComplexPortExcitation(Port, Magnitudes(Port - port_start), Phases(Port - port_start) - (phase_sign * CPmodePhases(Port - port_start)) )
 			Next Port
 		End With
 	Next task
