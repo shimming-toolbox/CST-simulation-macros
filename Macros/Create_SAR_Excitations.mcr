@@ -17,7 +17,7 @@ Sub Main ()
 
 	'########################################INSERT PARAMETERS HERE#################################################'
 	nb_coils = 8
-	port_start = 24
+	port_start = 1
 	default_phase = 0
 	default_magnitude = 1
 	'###########################################################################################################'
@@ -39,6 +39,10 @@ Sub Main ()
 
 				.SetProperty ("maximum frequency range", "True")
 				.SetProperty ("enabled", "True")
+				.SetProperty ("blocknameforcombineresults", "MWSSCHEM1")
+				.SetProperty ("docombineresults", "True")
+				.ResetCombineMonitorFilters
+				.AddCombineMonitorFilter(":powerloss:")
 				.EnableResult ("block", True )
 				.SetComplexPortExcitation(port_start - 1 + i, default_magnitude, default_phase)
 				.SetComplexPortExcitation(port_start - 1 + j, default_magnitude, default_phase)
@@ -54,6 +58,10 @@ Sub Main ()
 
 					.SetProperty ("maximum frequency range", "True")
 					.SetProperty ("enabled", "True")
+					.SetProperty ("blocknameforcombineresults", "MWSSCHEM1")
+					.SetProperty ("docombineresults", "True")
+					.ResetCombineMonitorFilters
+					.AddCombineMonitorFilter(":powerloss:")
 					.EnableResult ("block", True )
 					.SetComplexPortExcitation(port_start - 1 + i, default_magnitude, default_phase)
 					.SetComplexPortExcitation(port_start - 1 + j, default_magnitude, default_phase)
