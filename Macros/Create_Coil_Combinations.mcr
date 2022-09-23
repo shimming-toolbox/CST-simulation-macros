@@ -18,7 +18,7 @@ Sub Main ()
 
 	'########################################INSERT PARAMETERS HERE#################################################'
 	nb_coils = 8
-	port_start = 24
+	port_start = 1
 	Extra_Tasks = Array("CPmode", "negCPMode", "zeroPhase")
 
 	'Default value for magnitude and phase. Used to simulate on the phantom'
@@ -27,7 +27,7 @@ Sub Main ()
 	'###########################################################################################################'
 
 	With SimulationTask
-		.name("Coil_Combinations")
+		.name("CoilCombinations")
 		.type("sequence")
 		.SetProperty ("enabled", "False")
 		.create
@@ -35,21 +35,26 @@ Sub Main ()
 
 	For i = 1 To nb_coils
 		With SimulationTask
-			.name("Coil_Combinations\Coil_" & i)
+			.name("CoilCombinations\Coil_" & i)
 			.type("ac")
 			.create
 
 			.SetProperty ("maximum frequency range", "True")
+			.SetProperty ("blocknameforcombineresults", "MWSSCHEM1")
+			.SetProperty ("docombineresults", "True")
+			.ResetCombineMonitorFilters
+			.AddCombineMonitorFilter(":hfield:")
 			.SetProperty ("enabled", "False")
 			.EnableResult ("block", True )
 			.SetComplexPortExcitation(port_start - 1 + i, phantom_magnitude, phantom_phase)
 			.SetPortSourceType (port_start - 1 + i, "signal")
+
 		End With
 	Next i
 
 	For Each task In Extra_Tasks
 		With SimulationTask
-			.name("Coil_Combinations\" & task)
+			.name("CoilCombinations\" & task)
 			.type("ac")
 			.create
 
